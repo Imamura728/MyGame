@@ -24,6 +24,7 @@
 
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
+#include "cocos2d.h"
 
 USING_NS_CC;
 
@@ -101,20 +102,20 @@ bool HelloWorld::init()
         this->addChild(label, 1);
     }
 
-    // add "HelloWorld" splash screen"
-    auto sprite = Sprite::create("HelloWorld.png");
-    if (sprite == nullptr)
-    {
-        problemLoading("'HelloWorld.png'");
-    }
-    else
-    {
-        // position the sprite on the center of the screen
-        sprite->setPosition(Vec2(visibleSize.width/2 + origin.x, visibleSize.height/2 + origin.y));
+	sprite = Sprite::create("pac-man.png");
+	this->addChild(sprite);
+	sprite->setPosition(Vec2(500, 500));
+	sprite->setColor(Color3B(128, 255, 255));
+	sprite->setOpacity(alpha);
 
-        // add the sprite as a child to this layer
-        this->addChild(sprite, 0);
-    }
+	x = -1;
+	y = 0;
+	flame = 0;
+	alpha = 255;
+
+	this->scheduleUpdate();
+
+
     return true;
 }
 
@@ -130,4 +131,49 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
     //_eventDispatcher->dispatchEvent(&customEndEvent);
 
 
+}
+
+void HelloWorld::update(float delta)
+{
+	//ここに更新処理を書く
+	//スプライトの現在座標を取得
+	 Vec2 pos = sprite->getPosition();
+	
+	 
+	//座標を移動させる
+	 
+
+	 if (pos.x == 100 && pos.y == 500)
+	 {
+		 x = 0;
+		 y = -1;
+	 }
+	 else if (pos.x == 100 && pos.y == 100)
+	 {
+		 x = 1;
+		 y = 0;
+	 }
+	 else if (pos.x == 500 && pos.y == 100)
+	 {
+		 x = 0;
+		 y = 1;
+	 }
+	 else if (pos.x == 500 && pos.y == 500)
+	 {
+		 x = -1;
+		 y = 0;
+	 }
+
+	pos += Vec2(x, y);
+	
+	//移動後の座標を反映
+	sprite->setPosition(pos);
+
+	sprite->setOpacity(alpha);
+	flame++;
+	if (flame == 60)
+	{
+		alpha = alpha - 51;
+		flame = 0;
+	}
 }
