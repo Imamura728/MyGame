@@ -102,12 +102,22 @@ bool HelloWorld::init()
         this->addChild(label, 1);
     }
 
-	sprite = Sprite::create("pac-man.png");
+	sprite = Sprite::create("pac-man move.png");
 	this->addChild(sprite);
-	sprite->setPosition(Vec2(500, 500));
-	sprite->setColor(Color3B(128, 255, 255));
-	sprite->setOpacity(alpha);
+	sprite->setPosition(Vec2(500,500));
+	sprite->setColor(Color3B(255,100,255));
+	sprite->setOpacity(255);
 
+	//画像の左下が(0，0)
+	//画像右下が(0，0)の座標系で
+	//sprite->setAnchorPoint(Vec2(1.0f,1.0f));
+
+	//左右反転
+	//sprite->setFlippedX(true);
+
+	//テクスチャの切り取り  開始X,Y,W,H,
+	sprite->setTextureRect(Rect(0, 0, 240, 240));
+	 
 	x = -1;
 	y = 0;
 	flame = 0;
@@ -146,22 +156,29 @@ void HelloWorld::update(float delta)
 	 if (pos.x == 100 && pos.y == 500)
 	 {
 		 x = 0;
-		 y = -1;
+		 y = -10;
+		 sprite->setRotation(-90);
 	 }
 	 else if (pos.x == 100 && pos.y == 100)
 	 {
-		 x = 1;
+		 x = 10;
 		 y = 0;
+		 sprite->setFlippedX(false);
+		 sprite->setRotation(0);
 	 }
 	 else if (pos.x == 500 && pos.y == 100)
 	 {
 		 x = 0;
-		 y = 1;
+		 y = 10;
+		 sprite->setFlippedY(false);
+		 sprite->setRotation(-90);
 	 }
 	 else if (pos.x == 500 && pos.y == 500)
 	 {
-		 x = -1;
+		 x = -10;
 		 y = 0;
+		 sprite->setFlippedX(true);
+		 sprite->setRotation(0);
 	 }
 
 	pos += Vec2(x, y);
@@ -169,11 +186,22 @@ void HelloWorld::update(float delta)
 	//移動後の座標を反映
 	sprite->setPosition(pos);
 
-	sprite->setOpacity(alpha);
+	/*sprite->setOpacity(alpha);
 	flame++;
 	if (flame == 60)
 	{
 		alpha = alpha - 51;
+		flame = 0;
+	}*/
+
+	flame++;
+	if (flame == 10)
+	{
+		sprite->setTextureRect(Rect(240, 0, 240, 240));
+	}
+	else if(flame == 20)
+	{
+		sprite->setTextureRect(Rect(0, 0, 240, 240));
 		flame = 0;
 	}
 }
