@@ -104,7 +104,7 @@ bool HelloWorld::init()
 
 	//—”‚Ì‰Šú‰»
 	//Random r = new Random();
-	/*srand(time(nullptr));*/
+	srand(time(nullptr));
 
 	for (int i = 0;i<10;i++)
 	{
@@ -113,9 +113,12 @@ bool HelloWorld::init()
 		sprite[i]->setPosition(Vec2(100*i, visibleSize.height/2.0f));
 		sprite[i]->setScale(0.5f);
 
-		
+		float mx, my;
 
-		JumpBy* action1 = JumpBy::create(1.0f, Vec2(0,0),300,5);
+		mx = rand();
+		my = rand();
+
+		MoveBy* action1 = MoveBy::create(2.0f, Vec2(mx,my));
 		sprite[i]->runAction(action1);
 	}
 	//sprite = Sprite::create("pac-man.png");
