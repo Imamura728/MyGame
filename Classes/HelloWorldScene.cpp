@@ -102,22 +102,31 @@ bool HelloWorld::init()
         this->addChild(label, 1);
     }
 
+	for (int i = 0;i<5;i++)
+	{
+		sprite[i] = Sprite::create("pac-man.png");
+		this->addChild(sprite[i]);
+		sprite[i]->setPosition(Vec2(100*i, visibleSize.height/2.0f));
+		sprite[i]->setScale(0.5f);
 
-	sprite = Sprite::create("pac-man.png");
-	this->addChild(sprite);
-	sprite->setPosition(Vec2(200,200));
-	sprite->setScale(0.5);
+		MoveBy* action1 = MoveBy::create(1.0f, Vec2(400, 200));
+		sprite[i]->runAction(action1);
+	}
+	//sprite = Sprite::create("pac-man.png");
+	//this->addChild(sprite);
+	//sprite->setPosition(Vec2(200,200));
+	//sprite->setScale(0.5);
 
-	sprite2 = Sprite::create("pac-man move.png");
-	this->addChild(sprite2);
-	sprite2->setPosition(Vec2(200, 200));
-	sprite2->setScale(0.5);
+	//sprite2 = Sprite::create("pac-man move.png");
+	//this->addChild(sprite2);
+	//sprite2->setPosition(Vec2(200, 200));
+	//sprite2->setScale(0.5);
 
-	MoveBy* action1 = MoveBy::create(1.0f, Vec2(400, 200));
-	EaseBackInOut* action2 = EaseBackInOut::create(action1);
+	//MoveBy* action1 = MoveBy::create(1.0f, Vec2(400, 200));
+	//EaseBackInOut* action2 = EaseBackInOut::create(action1);
 
-	sprite->runAction(action1);
-	//sprite2->runAction(action1->clone);
+	//sprite->runAction(action1);
+	////sprite2->runAction(action1->clone);
 	//画像の左下が(0，0)
 	//画像右下が(0，0)の座標系で
 	//sprite->setAnchorPoint(Vec2(1.0f,1.0f));
