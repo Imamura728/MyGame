@@ -102,14 +102,20 @@ bool HelloWorld::init()
         this->addChild(label, 1);
     }
 
-	for (int i = 0;i<5;i++)
+	//—”‚Ì‰Šú‰»
+	//Random r = new Random();
+	/*srand(time(nullptr));*/
+
+	for (int i = 0;i<2;i++)
 	{
 		sprite[i] = Sprite::create("pac-man.png");
 		this->addChild(sprite[i]);
 		sprite[i]->setPosition(Vec2(100*i, visibleSize.height/2.0f));
 		sprite[i]->setScale(0.5f);
 
-		MoveBy* action1 = MoveBy::create(1.0f, Vec2(400, 200));
+		
+
+		JumpBy* action1 = JumpBy::create(1.0f, Vec2(0,0),300,5);
 		sprite[i]->runAction(action1);
 	}
 	//sprite = Sprite::create("pac-man.png");
