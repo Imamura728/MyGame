@@ -43,12 +43,12 @@ public:
     CREATE_FUNC(HelloWorld);
 
 	//Sprite配列
-	cocos2d::Sprite* sprite[100];
+	//cocos2d::Sprite* sprite[100];
 
 	//スプライト
-	/*cocos2d::Sprite* sprite;
+	cocos2d::Sprite* sprite;
 	cocos2d::Sprite* sprite2;
-	float x;
+	/*float x;
 	float y;
 	int flame;
 	int alpha;*/

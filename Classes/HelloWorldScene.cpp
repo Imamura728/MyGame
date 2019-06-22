@@ -104,28 +104,25 @@ bool HelloWorld::init()
 
 	//—”‚Ì‰Šú‰»
 	//Random r = new Random();
-	srand(time(nullptr));
+	/*srand(time(nullptr));*/
 
-	for (int i = 0;i<10;i++)
-	{
-		sprite[i] = Sprite::create("pac-man.png");
-		this->addChild(sprite[i]);
-		sprite[i]->setPosition(Vec2(100*i, visibleSize.height/2.0f));
-		sprite[i]->setScale(0.5f);
 
-		float mx, my;
+	sprite = Sprite::create("pac-man.png");
+	this->addChild(sprite);
+	sprite->setPosition(Vec2(200,visibleSize.height/2));
+	sprite->setScale(0.5);
+	FadeOut* action1 = FadeOut::create(5.0f);
 
-		mx = rand();
-		my = rand();
+	sprite->runAction(action1);
 
-		MoveBy* action1 = MoveBy::create(2.0f, Vec2(mx,my));
-		sprite[i]->runAction(action1);
-	}
-	//sprite = Sprite::create("pac-man.png");
-	//this->addChild(sprite);
-	//sprite->setPosition(Vec2(200,200));
-	//sprite->setScale(0.5);
+	sprite2 = Sprite::create("pac-man move.png");
+	this->addChild(sprite2);
+	sprite2->setPosition(Vec2(200, visibleSize.height / 2));
+	sprite2->setScale(0.5);
+	sprite2->setOpacity(0);
+	FadeIn* action2 = FadeIn::create(2.5f);
 
+	sprite2->runAction(action2);
 	//sprite2 = Sprite::create("pac-man move.png");
 	//this->addChild(sprite2);
 	//sprite2->setPosition(Vec2(200, 200));
