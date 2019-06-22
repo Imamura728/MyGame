@@ -44,7 +44,7 @@ public:
 
 	//スプライト
 	cocos2d::Sprite* sprite;
-
+	cocos2d::Sprite* sprite2;
 	float x;
 	float y;
 	int flame;
