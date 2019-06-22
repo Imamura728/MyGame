@@ -106,7 +106,7 @@ bool HelloWorld::init()
 	//Random r = new Random();
 	/*srand(time(nullptr));*/
 
-	for (int i = 0;i<2;i++)
+	for (int i = 0;i<10;i++)
 	{
 		sprite[i] = Sprite::create("pac-man.png");
 		this->addChild(sprite[i]);
