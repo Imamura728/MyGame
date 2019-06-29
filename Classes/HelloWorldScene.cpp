@@ -105,10 +105,11 @@ bool HelloWorld::init()
 	this->addChild(sprite);
 
 	MoveTo* action1 = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
-	DelayTime* action2 = DelayTime::create(1.0f);
+	ToggleVisibility* action2 = ToggleVisibility::create();
 	JumpBy* action3 = JumpBy::create(1.0f, Vec2(200.0f, 200.0f), 300.0f, 2);
 	Sequence* action4 = Sequence::create(action1, action2, action3, nullptr);
-	sprite->runAction(action4);
+	Repeat* action5 = Repeat::create(action4, 5);
+	sprite->runAction(action5);
 
 
 /*	MoveTo* action1 = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
