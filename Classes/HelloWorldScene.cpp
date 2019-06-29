@@ -101,12 +101,23 @@ bool HelloWorld::init()
         // add the label as a child to this layer
         this->addChild(label, 1);
     }
+	sprite = Sprite::create("pac-man.png");
+	this->addChild(sprite);
+
+	MoveTo* action1 = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
+	JumpTo* action2 = JumpTo::create(1.0f, Vec2(200.0f,200.0f),300.0f,2);
+	TintTo* action3 = TintTo::create(2.0f, Color3B(255,0,255));
+	Spawn* action4 = Spawn::create(action2, action3, nullptr);
+	Sequence* action5 = Sequence::create(action1, action4, nullptr);
+	sprite->runAction(action5);
 
 	//—”‚Ì‰Šú‰»
 	//Random r = new Random();
 	/*srand(time(nullptr));*/
 
-
+	//‰æ–Ê‚È‚¢ƒ‰ƒ“ƒ_ƒ€
+	//  / RAND-MAX * visibleSize.height/2
+/*
 	sprite = Sprite::create("pac-man.png");
 	this->addChild(sprite);
 	sprite->setPosition(Vec2(200,visibleSize.height/2));
@@ -122,7 +133,7 @@ bool HelloWorld::init()
 	sprite2->setOpacity(0);
 	FadeIn* action2 = FadeIn::create(2.5f);
 
-	sprite2->runAction(action2);
+	sprite2->runAction(action2);*/
 	//sprite2 = Sprite::create("pac-man move.png");
 	//this->addChild(sprite2);
 	//sprite2->setPosition(Vec2(200, 200));
