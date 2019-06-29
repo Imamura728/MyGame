@@ -104,12 +104,16 @@ bool HelloWorld::init()
 	sprite = Sprite::create("pac-man.png");
 	this->addChild(sprite);
 
-	MoveTo* action1 = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
-	JumpBy* action2 = JumpBy::create(1.0f, Vec2(200.0f, 200.0f), 300.0f, 2);
-	//Hide* action3 = Hide::create();
-	RemoveSelf* action3 = RemoveSelf::create();
-	Sequence* action4 = Sequence::create(action1, action2, action3, nullptr);
-	sprite->runAction(action4);
+	Place* action0 = Place::create(Vec2(visibleSize.width,visibleSize.height));
+	MoveTo* move1 = MoveTo::create(5.0f, Vec2(0,visibleSize.height));
+	MoveTo* move2 = MoveTo::create(5.0f, Vec2(0,0));
+	MoveTo* move3 = MoveTo::create(5.0f, Vec2(visibleSize.width, 0));
+	MoveTo* move4 = MoveTo::create(5.0f, Vec2(visibleSize.width, visibleSize.height));
+	
+	Sequence* action1 = Sequence::create(move1,move2,move3,move4,nullptr);
+	RepeatForever* action2 = RepeatForever::create(action1);
+	sprite->runAction(action0);
+	sprite->runAction(action2);
 
 
 /*	MoveTo* action1 = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
