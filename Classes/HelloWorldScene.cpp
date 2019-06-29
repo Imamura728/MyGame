@@ -105,12 +105,20 @@ bool HelloWorld::init()
 	this->addChild(sprite);
 
 	MoveTo* action1 = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
+	JumpTo* action2 = JumpTo::create(1.0f, Vec2(200.0f, 200.0f), 300.0f, 2);
+	Sequence* action3 = Sequence::create(action1, action2, nullptr);
+	//指定アクションをn回繰り返すアクション
+	Repeat* action4 = Repeat::create(action3, 8);
+	sprite->runAction(action4);
+
+
+/*	MoveTo* action1 = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
 	JumpTo* action2 = JumpTo::create(1.0f, Vec2(200.0f,200.0f),300.0f,2);
 	TintTo* action3 = TintTo::create(2.0f, Color3B(255,0,255));
 	Spawn* action4 = Spawn::create(action2, action3, nullptr);
 	Sequence* action5 = Sequence::create(action1, action4, nullptr);
 	sprite->runAction(action5);
-
+*/
 	//乱数の初期化
 	//Random r = new Random();
 	/*srand(time(nullptr));*/
