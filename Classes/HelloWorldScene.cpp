@@ -103,8 +103,21 @@ bool HelloWorld::init()
         this->addChild(label, 1);
     }
 	
+<<<<<<< HEAD
+	//CallFunc* callFunc = CallFunc::create(CC_CALLBACK_0(HelloWorld::myFunction, this));
+
+	CallFunc* callFunc = CallFunc::create(CC_CALLBACK_0(HelloWorld::myFunction2, this, "HelloWorld.png"));
+
+	DelayTime* delay = DelayTime::create(1.0f);
+	//連続アクション
+	Sequence * seq = Sequence::create(delay, callFunc, nullptr);
+
+	this->runAction(seq);
+	//myFunction();
+=======
 	audioID = experimental::AudioEngine::play2d("testbgm.mp3",true);
 	
+>>>>>>> kadai
 
 	this->scheduleUpdate();
 
@@ -141,4 +154,20 @@ void HelloWorld::update(float delta)
 	{
 		experimental::AudioEngine::resume(audioID);
 	}
+}
+
+void HelloWorld::myFunction()
+{
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Sprite*spr = Sprite::create("HelloWorld.png");
+	this->addChild(spr);
+	this->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
+}
+
+void HelloWorld::myFunction2(std::string filename)
+{
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+	Sprite*spr = Sprite::create(filename);
+	this->addChild(spr);
+	this->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
 }
