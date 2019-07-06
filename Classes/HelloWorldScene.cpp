@@ -24,6 +24,7 @@
 
 #include "HelloWorldScene.h"
 #include "SimpleAudioEngine.h"
+#include "AudioEngine.h"
 #include "cocos2d.h"
 
 USING_NS_CC;
@@ -101,68 +102,8 @@ bool HelloWorld::init()
         // add the label as a child to this layer
         this->addChild(label, 1);
     }
-	sprite = Sprite::create("pac-man.png");
-	this->addChild(sprite);
-
-	Place* action0 = Place::create(Vec2(visibleSize.width,visibleSize.height));
-	MoveTo* move1 = MoveTo::create(5.0f, Vec2(0,visibleSize.height));
-	MoveTo* move2 = MoveTo::create(5.0f, Vec2(0,0));
-	MoveTo* move3 = MoveTo::create(5.0f, Vec2(visibleSize.width, 0));
-	MoveTo* move4 = MoveTo::create(5.0f, Vec2(visibleSize.width, visibleSize.height));
 	
-	Sequence* action1 = Sequence::create(move1,move2,move3,move4,nullptr);
-	RepeatForever* action2 = RepeatForever::create(action1);
-	sprite->runAction(action0);
-	sprite->runAction(action2);
-
-
-/*	MoveTo* action1 = MoveTo::create(2.0f, Vec2(600.0f, 300.0f));
-	JumpTo* action2 = JumpTo::create(1.0f, Vec2(200.0f,200.0f),300.0f,2);
-	TintTo* action3 = TintTo::create(2.0f, Color3B(255,0,255));
-	Spawn* action4 = Spawn::create(action2, action3, nullptr);
-	Sequence* action5 = Sequence::create(action1, action4, nullptr);
-	sprite->runAction(action5);
-*/
-	//乱数の初期化
-	//Random r = new Random();
-	/*srand(time(nullptr));*/
-
-	//画面ないランダム
-	//  / RAND-MAX * visibleSize.height/2
-/*
-	sprite = Sprite::create("pac-man.png");
-	this->addChild(sprite);
-	sprite->setPosition(Vec2(200,visibleSize.height/2));
-	sprite->setScale(0.5);
-	FadeOut* action1 = FadeOut::create(5.0f);
-
-	sprite->runAction(action1);
-
-	sprite2 = Sprite::create("pac-man move.png");
-	this->addChild(sprite2);
-	sprite2->setPosition(Vec2(200, visibleSize.height / 2));
-	sprite2->setScale(0.5);
-	sprite2->setOpacity(0);
-	FadeIn* action2 = FadeIn::create(2.5f);
-
-	sprite2->runAction(action2);*/
-	//sprite2 = Sprite::create("pac-man move.png");
-	//this->addChild(sprite2);
-	//sprite2->setPosition(Vec2(200, 200));
-	//sprite2->setScale(0.5);
-
-	//MoveBy* action1 = MoveBy::create(1.0f, Vec2(400, 200));
-	//EaseBackInOut* action2 = EaseBackInOut::create(action1);
-
-	//sprite->runAction(action1);
-	////sprite2->runAction(action1->clone);
-	//画像の左下が(0，0)
-	//画像右下が(0，0)の座標系で
-	//sprite->setAnchorPoint(Vec2(1.0f,1.0f));
-
-	//左右反転
-	//sprite->setFlippedX(true);
-
+	audioID = experimental::AudioEngine::play2d("testbgm.mp3",true);
 	
 
 	this->scheduleUpdate();
@@ -187,5 +128,17 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 void HelloWorld::update(float delta)
 {
-	
+	counter--;
+
+	if (counter == 60)
+	{
+		experimental::AudioEngine::pause(audioID);
+		/*experimental::AudioEngine::stopAll();
+		experimental::AudioEngine::play2d("test.mp3");
+		counter = 114514;*/
+	}
+	if (counter == 0)
+	{
+		experimental::AudioEngine::resume(audioID);
+	}
 }

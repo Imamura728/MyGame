@@ -42,16 +42,9 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 
-	//Sprite配列
-	//cocos2d::Sprite* sprite[100];
+	int audioID;
+	int counter = 60;
 
-	//スプライト
-	cocos2d::Sprite* sprite;
-	cocos2d::Sprite* sprite2;
-	/*float x;
-	float y;
-	int flame;
-	int alpha;*/
 };
 
 #endif // __HELLOWORLD_SCENE_H__
