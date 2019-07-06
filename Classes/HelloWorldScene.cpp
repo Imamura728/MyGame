@@ -103,7 +103,7 @@ bool HelloWorld::init()
         this->addChild(label, 1);
     }
 	
-<<<<<<< HEAD
+
 	//CallFunc* callFunc = CallFunc::create(CC_CALLBACK_0(HelloWorld::myFunction, this));
 
 	CallFunc* callFunc = CallFunc::create(CC_CALLBACK_0(HelloWorld::myFunction2, this, "HelloWorld.png"));
@@ -114,10 +114,10 @@ bool HelloWorld::init()
 
 	this->runAction(seq);
 	//myFunction();
-=======
+
 	audioID = experimental::AudioEngine::play2d("testbgm.mp3",true);
 	
->>>>>>> kadai
+
 
 	this->scheduleUpdate();
 
