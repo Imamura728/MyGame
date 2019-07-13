@@ -35,11 +35,6 @@ public:
     virtual bool init();
 
 	void update(float delta) override;
-    
-	//é©çÏä÷êî
-	void myFunction();
-
-	void myFunction2(std::string filename);
 
     // a selector callback
     void menuCloseCallback(cocos2d::Ref* pSender);
@@ -47,9 +42,7 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 
-	int audioID;
-	int counter = 60;
-
+	
 };
 
 #endif // __HELLOWORLD_SCENE_H__

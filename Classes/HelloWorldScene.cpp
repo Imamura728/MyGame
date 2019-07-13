@@ -59,28 +59,28 @@ bool HelloWorld::init()
     //    you may modify it.
 
     // add a "close" icon to exit the progress. it's an autorelease object
-    auto closeItem = MenuItemImage::create(
+   /* auto closeItem = MenuItemImage::create(
                                            "CloseNormal.png",
                                            "CloseSelected.png",
-                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));
+                                           CC_CALLBACK_1(HelloWorld::menuCloseCallback, this));*/
 
-    if (closeItem == nullptr ||
-        closeItem->getContentSize().width <= 0 ||
-        closeItem->getContentSize().height <= 0)
-    {
-        problemLoading("'CloseNormal.png' and 'CloseSelected.png'");
-    }
-    else
-    {
-        float x = origin.x + visibleSize.width - closeItem->getContentSize().width/2;
-        float y = origin.y + closeItem->getContentSize().height/2;
-        closeItem->setPosition(Vec2(x,y));
-    }
+    //if (closeItem == nullptr ||
+    //    closeItem->getContentSize().width <= 0 ||
+    //    closeItem->getContentSize().height <= 0)
+    //{
+    //    //problemLoading("'CloseNormal.png' and 'CloseSelected.png'");
+    //}
+    //else
+    //{
+    //    float x = origin.x + visibleSize.width - closeItem->getContentSize().width/2;
+    //    float y = origin.y + closeItem->getContentSize().height/2;
+    //    closeItem->setPosition(Vec2(x,y));
+    //}
 
     // create menu, it's an autorelease object
-    auto menu = Menu::create(closeItem, NULL);
-    menu->setPosition(Vec2::ZERO);
-    this->addChild(menu, 1);
+    //auto menu = Menu::create(closeItem, NULL);
+    //menu->setPosition(Vec2::ZERO);
+    //this->addChild(menu, 1);
 
     /////////////////////////////
     // 3. add your codes below...
@@ -88,35 +88,64 @@ bool HelloWorld::init()
     // add a label shows "Hello World"
     // create and initialize a label
 
-    auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
-    if (label == nullptr)
-    {
-        problemLoading("'fonts/Marker Felt.ttf'");
-    }
-    else
-    {
-        // position the label on the center of the screen
-        label->setPosition(Vec2(origin.x + visibleSize.width/2,
-                                origin.y + visibleSize.height - label->getContentSize().height));
+    //auto label = Label::createWithTTF("Hello World", "fonts/Marker Felt.ttf", 24);
+    //if (label == nullptr)
+    //{
+    //    problemLoading("'fonts/Marker Felt.ttf'");
+    //}
+    //else
+    //{
+    //    // position the label on the center of the screen
+    //    label->setPosition(Vec2(origin.x + visibleSize.width/2,
+    //                            origin.y + visibleSize.height - label->getContentSize().height));
 
-        // add the label as a child to this layer
-        this->addChild(label, 1);
-    }
+    //    // add the label as a child to this layer
+    //    this->addChild(label, 1);
+    //}
 	
+// テクスチャファイル名を指定して、スプライトを作成
+	Sprite* zero = Sprite::create("0%.png"); 
+	// シーングラフにつなぐ 
+	this->addChild(zero); 
 
-	//CallFunc* callFunc = CallFunc::create(CC_CALLBACK_0(HelloWorld::myFunction, this));
+	zero->setPosition(Vec2(visibleSize.width / 2, visibleSize.height /2));
+	zero->setScale(3);
 
-	CallFunc* callFunc = CallFunc::create(CC_CALLBACK_0(HelloWorld::myFunction2, this, "HelloWorld.png"));
+	Sprite* ten1 = Sprite::create("10.png");
+	this->addChild(ten1);
+	ten1->setPosition(Vec2(595, 268));
+	ten1->setScale(2.5);
+	ten1->setScaleY(2.7);
 
-	DelayTime* delay = DelayTime::create(1.0f);
-	//連続アクション
-	Sequence * seq = Sequence::create(delay, callFunc, nullptr);
+	Sprite* ten2 = Sprite::create("10.png");
+	this->addChild(ten2);
+	ten2->setPosition(Vec2(835, 268));
+	ten2->setScale(2.5);
+	ten2->setScaleY(2.7);
 
-	this->runAction(seq);
-	//myFunction();
+	Sprite* star1 = Sprite::create("starR.png");
+	this->addChild(star1);
+	star1->setPosition(Vec2(640, 400));
+	star1->setScale(2.5);
+	star1->setScaleY(2.7);
 
-	audioID = experimental::AudioEngine::play2d("testbgm.mp3",true);
-	
+	Sprite* star2 = Sprite::create("starG.png");
+	this->addChild(star2);
+	star2->setPosition(Vec2(880, 400));
+	star2->setScale(2.5);
+	star2->setScaleY(2.7);
+
+	Sprite* k1001 = Sprite::create("100kirby.png");
+	this->addChild(k1001);
+	k1001->setPosition(Vec2(640, 150));
+	k1001->setScale(2.5);
+	k1001->setScaleY(2.7);
+
+	Sprite* k1002 = Sprite::create("100kirby.png");
+	this->addChild(k1002);
+	k1002->setPosition(Vec2(880, 150));
+	k1002->setScale(2.5);
+	k1002->setScaleY(2.7);
 
 
 	this->scheduleUpdate();
@@ -141,33 +170,5 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 void HelloWorld::update(float delta)
 {
-	counter--;
-
-	if (counter == 60)
-	{
-		experimental::AudioEngine::pause(audioID);
-		/*experimental::AudioEngine::stopAll();
-		experimental::AudioEngine::play2d("test.mp3");
-		counter = 114514;*/
-	}
-	if (counter == 0)
-	{
-		experimental::AudioEngine::resume(audioID);
-	}
-}
-
-void HelloWorld::myFunction()
-{
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Sprite*spr = Sprite::create("HelloWorld.png");
-	this->addChild(spr);
-	this->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
-}
-
-void HelloWorld::myFunction2(std::string filename)
-{
-	Size visibleSize = Director::getInstance()->getVisibleSize();
-	Sprite*spr = Sprite::create(filename);
-	this->addChild(spr);
-	this->setPosition(Vec2(visibleSize.width / 2.0f, visibleSize.height / 2.0f));
+	
 }
