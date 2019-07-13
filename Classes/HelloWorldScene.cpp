@@ -103,6 +103,7 @@ bool HelloWorld::init()
     //    this->addChild(label, 1);
     //}
 	
+
 // テクスチャファイル名を指定して、スプライトを作成
 	Sprite* zero = Sprite::create("0%.png"); 
 	// シーングラフにつなぐ 
@@ -147,7 +148,60 @@ bool HelloWorld::init()
 	k1002->setScale(2.5);
 	k1002->setScaleY(2.7);
 
+	Sprite* breath = Sprite::create("breath.png");
+	this->addChild(breath);
+	breath->setPosition(Vec2(400, 105));
+	breath->setScale(4);
 
+	// テクスチャの読み込み
+	Texture2D* texture = Director::getInstance()->getTextureCache()->addImage("dash.png");
+
+	// テクスチャからアニメーションパターンを指定する
+	SpriteFrame* frame0 = SpriteFrame::createWithTexture(texture, Rect(75 * 0, 0, 75, 72));
+	SpriteFrame* frame1 = SpriteFrame::createWithTexture(texture, Rect(75 * 1, 0, 75, 72));
+	SpriteFrame* frame2 = SpriteFrame::createWithTexture(texture, Rect(75 * 2, 0, 75, 72));
+	SpriteFrame* frame3 = SpriteFrame::createWithTexture(texture, Rect(75 * 3, 0, 75, 72));
+	SpriteFrame* frame4 = SpriteFrame::createWithTexture(texture, Rect(75 * 4, 0, 75, 72));
+	SpriteFrame* frame5 = SpriteFrame::createWithTexture(texture, Rect(75 * 5, 0, 75, 72));
+	SpriteFrame* frame6 = SpriteFrame::createWithTexture(texture, Rect(75 * 6, 0, 75, 72));
+	SpriteFrame* frame7 = SpriteFrame::createWithTexture(texture, Rect(75 * 1, 0, 75, 72));
+
+	// 全てのアニメーションパターンをまとめる
+	Vector<SpriteFrame*> animFrames(8);
+	animFrames.pushBack(frame0);
+	animFrames.pushBack(frame1);
+	animFrames.pushBack(frame2);
+	animFrames.pushBack(frame3);
+	animFrames.pushBack(frame4);
+	animFrames.pushBack(frame5);
+	animFrames.pushBack(frame6);
+	animFrames.pushBack(frame7);
+
+	// アニメーションパターンからSpriteを生成
+	Sprite* dash = Sprite::createWithSpriteFrame(frame0);
+	dash->setPosition(Vec2(0, 100));
+	dash->setScale(3.0f);	// 拡大
+	this->addChild(dash);
+
+	// 一コマ分の時間を指定してアニメーションデータを生成
+	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.08f);
+	// アニメーションデータからアニメーションアクションを生成
+	Animate* animate = Animate::create(animation);
+	// 指定回数繰り返すアクションを生成
+	Repeat* repeat = Repeat::create(animate, 4);
+	MoveTo* move1 = MoveTo::create(2.5f, Vec2(400, 100));
+
+	Hide* hide = Hide::create();
+	Show* show = Show::create();
+	Spawn* dash1 = Spawn::create(repeat, move1, nullptr);
+	Sequence* action1 = Sequence::create(dash1, hide, nullptr);
+	DelayTime* delay1 = DelayTime::create(2.5f);
+	Sequence* showAct1 = Sequence::create(delay1, show, nullptr);
+
+	// アクションの実行
+	dash->runAction(action1);
+	breath->runAction(hide);
+	breath->runAction(showAct1);
 	this->scheduleUpdate();
 
 
