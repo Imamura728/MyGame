@@ -153,6 +153,31 @@ bool HelloWorld::init()
 	breath->setPosition(Vec2(400, 105));
 	breath->setScale(4);
 
+	Sprite* hob = Sprite::create("hob.png");
+	this->addChild(hob);
+	hob->setPosition(Vec2(400, 105));
+	hob->setScale(3);
+
+	Sprite* shot = Sprite::create("star.png");
+	this->addChild(shot);
+	shot->setPosition(Vec2(440, 105));
+	shot->setScale(0.08f);
+
+	Sprite* fire = Sprite::create("onfire.png");
+	this->addChild(fire);
+	fire->setPosition(Vec2(640, 140));
+	fire->setScale(3.0f);
+
+	Sprite* fire2 = Sprite::create("onfire.png");
+	this->addChild(fire2);
+	fire2->setPosition(Vec2(880, 140));
+	fire2->setScale(3.0f);
+
+	Sprite* ouch = Sprite::create("ouch.png");
+	this->addChild(ouch);
+	ouch->setPosition(Vec2(400, 105));
+	ouch->setScale(3.0f);
+
 	// テクスチャの読み込み
 	Texture2D* texture = Director::getInstance()->getTextureCache()->addImage("dash.png");
 
@@ -183,6 +208,7 @@ bool HelloWorld::init()
 	dash->setScale(3.0f);	// 拡大
 	this->addChild(dash);
 
+	//フェーズ1
 	// 一コマ分の時間を指定してアニメーションデータを生成
 	Animation* animation = Animation::createWithSpriteFrames(animFrames, 0.08f);
 	// アニメーションデータからアニメーションアクションを生成
@@ -193,15 +219,96 @@ bool HelloWorld::init()
 
 	Hide* hide = Hide::create();
 	Show* show = Show::create();
+	Hide* hide2 = Hide::create();
+	Hide* hide3 = Hide::create();
+	Hide* hide4 = Hide::create();
+	Hide* hide5 = Hide::create();
+	Hide* hide6 = Hide::create();
 	Spawn* dash1 = Spawn::create(repeat, move1, nullptr);
 	Sequence* action1 = Sequence::create(dash1, hide, nullptr);
 	DelayTime* delay1 = DelayTime::create(2.5f);
 	Sequence* showAct1 = Sequence::create(delay1, show, nullptr);
+	//フェーズ2
+	DelayTime* delay2 = DelayTime::create(2.0f);
+	MoveTo* move2 = MoveTo::create(2.0f, Vec2(400, 100));
+	MoveTo* move3 = MoveTo::create(2.0f, Vec2(400, 100));
+	MoveTo* move4 = MoveTo::create(2.0f, Vec2(400, 100));
+	MoveTo* move5 = MoveTo::create(2.0f, Vec2(400, 100));
+	ScaleTo* small1 = ScaleTo::create(2.0f, 0);
+	ScaleTo* small2 = ScaleTo::create(2.0f, 0);
+	ScaleTo* small3 = ScaleTo::create(2.0f, 0);
+	ScaleTo* small4 = ScaleTo::create(2.0f, 0);
+	RemoveSelf* remove = RemoveSelf::create();
+	Spawn* toMouth1 = Spawn::create(move2, small1, nullptr);
+	Spawn* toMouth2 = Spawn::create(move3, small2, nullptr);
+	Spawn* toMouth3 = Spawn::create(move4, small3, nullptr);
+	Spawn* toMouth4 = Spawn::create(move5, small4, nullptr);
+	Sequence* inTo1 = Sequence::create(delay1, toMouth1,hide, nullptr);
+	Sequence* inTo2 = Sequence::create(delay1, toMouth2,hide, nullptr);
+	Sequence* inTo3 = Sequence::create(delay1, toMouth3,hide, nullptr);
+	Sequence* inTo4 = Sequence::create(delay1, toMouth4,hide, nullptr);
+	
+	//フェーズ3
+	Sequence* toHide1 = Sequence::create(delay1,delay2, hide, nullptr);
+	Sequence* showAct2 = Sequence::create(delay1, delay2, show, nullptr);
+
+	//フェーズ4
+	MoveBy* move7 = MoveBy::create(2.0f, Vec2(0,-500));
+	MoveBy* move8 = MoveBy::create(2.0f, Vec2(0, -500));
+	DelayTime* delay3 = DelayTime::create(1.0f);
+	DelayTime* hitDelay = DelayTime::create(0.5f);
+	DelayTime* hitDelay2 = DelayTime::create(0.5f);
+	DelayTime* stay = DelayTime::create(0.5f);
+	DelayTime*stay2 = DelayTime::create(0.5f);
+	Sequence* toHide2 = Sequence::create(delay1, delay2,delay3, hide, nullptr);
+	Sequence* showAct3 = Sequence::create(delay1, delay2,delay3, show, nullptr);
+	MoveTo* move6 = MoveTo::create(2.5f, Vec2(1400, 100));
+	RotateBy* roll = RotateBy::create(2.0f, 360);
+	RepeatForever* rolling = RepeatForever::create(roll);
+	Place* place = Place::create(Vec2(-50, 100));
+	MoveBy* move9 = MoveBy::create(2.0f, Vec2(450, 0));
+	Sequence* pow = Sequence::create(delay1, delay2, delay3,show, move6,place,move9,hide, nullptr);
+	Sequence* onfire = Sequence::create(delay1, delay2, delay3,hitDelay, show,stay,move7, nullptr);
+	Sequence* onfire2 = Sequence::create(delay1, delay2, delay3, hitDelay,hitDelay2, show,stay2,move8, nullptr);
+	Sequence* fired = Sequence::create(delay1, delay2, delay3, hitDelay,hide, nullptr);
+	Sequence* fired2 = Sequence::create(delay1, delay2, delay3, hitDelay, hitDelay2, hide, nullptr);
+	
+	//フェーズ5
+	DelayTime* phase5 = DelayTime::create(10.0f);
+	DelayTime* deadDelay = DelayTime::create(1.0f);
+	Sequence* dead = Sequence::create(phase5, hide, nullptr);
+	MoveBy* move10 = MoveBy::create(0.5f, Vec2(0, 200));
+	MoveBy* move11 = MoveBy::create(0.5f, Vec2(0, -400));
+	RotateBy* droll = RotateBy::create(0.5f, 360);
+	Spawn* over = Spawn::create(droll, move10, nullptr);
+	Spawn* over2 = Spawn::create(droll, move11, nullptr);
+	Sequence* damaged = Sequence::create(phase5, show, deadDelay, over, over2, nullptr);
 
 	// アクションの実行
 	dash->runAction(action1);
 	breath->runAction(hide);
+	hob->runAction(hide2);
+	shot->runAction(hide3);
+	fire->runAction(hide4);
+	fire2->runAction(hide5);
+	ouch->runAction(hide6);
 	breath->runAction(showAct1);
+	star1->runAction(inTo1);
+	star2->runAction(inTo2);
+	ten1->runAction(inTo3);
+	ten2->runAction(inTo4);
+	breath->runAction(toHide1);
+	hob->runAction(showAct2);
+	hob->runAction(toHide2);
+	breath->runAction(showAct3);
+	shot->runAction(rolling);
+	shot->runAction(pow);
+	fire->runAction(onfire);
+	fire2->runAction(onfire2);
+	k1001->runAction(fired);
+	k1002->runAction(fired2);
+	breath->runAction(dead);
+	ouch->runAction(damaged);
 	this->scheduleUpdate();
 
 
