@@ -331,5 +331,34 @@ void HelloWorld::menuCloseCallback(Ref* pSender)
 
 void HelloWorld::update(float delta)
 {
-	
+	counter++;
+
+	if (counter == 5)
+	{
+		experimental::AudioEngine::play2d("dashing.mp3");
+	}
+	else if (counter == 125)
+	{
+		experimental::AudioEngine::play2d("breathing.mp3");
+	}
+	else if (counter == 305)
+	{
+		experimental::AudioEngine::play2d("shoot.mp3");
+	}
+	else if (counter == 335)
+	{
+		experimental::AudioEngine::play2d("hit.mp3");
+	}
+	else if (counter == 365)
+	{
+		experimental::AudioEngine::play2d("hit.mp3");
+	}
+	else if (counter == 595)
+	{
+		experimental::AudioEngine::play2d("damaged.mp3");
+	}
+	else if (counter == 655)
+	{
+		experimental::AudioEngine::play2d("miss.mp3",false,0.5f);
+	}
 }

@@ -42,6 +42,7 @@ public:
     // implement the "static create()" method manually
     CREATE_FUNC(HelloWorld);
 
+	int counter = 0;
 };
 
 #endif // __HELLOWORLD_SCENE_H__
