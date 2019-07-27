@@ -105,7 +105,7 @@ bool HelloWorld::init()
 	
 
 // テクスチャファイル名を指定して、スプライトを作成
-	Sprite* zero = Sprite::create("0%.png"); 
+	Sprite* zero = Sprite::create("0memory.png"); 
 	// シーングラフにつなぐ 
 	this->addChild(zero); 
 
